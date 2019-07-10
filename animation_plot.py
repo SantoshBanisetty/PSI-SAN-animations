@@ -28,6 +28,7 @@ fig.set_dpi(100)
 fig.set_size_inches(7, 6.5)
 
 ax = plt.axes(xlim=(0, 10), ylim=(0, 10))
+ax.grid(color='k', linestyle=':', linewidth=0.25)
 patch = Ellipse(xy=(0.5, 0.5), width=0.5, height=0.2, angle=60)
 patch1 = Circle((5, -5), 0.1, fc='k')
 
