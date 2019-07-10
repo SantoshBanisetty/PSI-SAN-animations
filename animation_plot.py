@@ -1,7 +1,23 @@
+import argparse
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
 from matplotlib.patches import Ellipse, Circle
+
+scenario =	{
+  "queue": [(1, 1, 90), (2, 2, 90), (3, 3, 90)],
+  "art": [(1, 1, 180)],
+  "formation": [(1, 1, 90), (2, 2, 180), (3, 3, 270)]
+}
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('file', help='Path to the file')
+parser.add_argument('scenario', help='SAN scenario[queue, art, formation]')
+parser.add_argument('--save', help='1 to save the animation')
+
+args = parser.parse_args()
+print(args)
 
 fig = plt.figure()
 fig.set_dpi(100)
