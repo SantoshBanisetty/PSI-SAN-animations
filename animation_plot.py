@@ -4,6 +4,10 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 from matplotlib.patches import Ellipse, Circle, Rectangle
 
+rect_width = 0.5
+rect_height = 0.3
+square_length = 0.2
+
 scenario_dist =	{
   "queue": [(1, 1, 90), (2, 2, 90), (3, 3, 90)],
   "art": [(1, 1, 180)],
@@ -33,8 +37,8 @@ patch = Ellipse(xy=(0.5, 0.5), width=0.5, height=0.2, angle=60)
 patch1 = Circle((5, -5), 0.1, fc='k')
 
 # Create a Rectangle patch
-rect = Rectangle((3,3), 0.5, 0.3, fc='r')
-square = Rectangle((3,3), 0.2, 0.2, fc='k')
+rect = Rectangle(xy=(3,3), width=rect_width, height=rect_height, fc='r')
+square = Rectangle(xy=(3,3), width=square_length, height=square_length, fc='k')
 
 #Add people as list comprehension
 people = [Ellipse(xy=(people_pose[i][0], people_pose[i][1]),
@@ -52,8 +56,8 @@ def init():
     	  ax.add_patch(head)
     patch.center = (5, 5)
     patch1.center = (5, 5)
-    rect.xy=(4-0.25, 4-0.15)
-    square.xy=(4-0.125,4-0.075)
+    rect.xy=(4-rect_width/2, 4-rect_height/2) #adjust for lower corner of the rectangle
+    square.xy=(4-square_length/2, 4-square_length/2)
     ax.add_patch(patch)
     ax.add_patch(patch1)
     ax.add_patch(rect)
