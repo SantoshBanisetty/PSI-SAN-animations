@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
 from matplotlib.patches import Ellipse, Circle, Rectangle
+from numpy import loadtxt
 
 rect_width = 0.5
 rect_height = 0.3
@@ -23,6 +24,10 @@ parser.add_argument('--save', help='1 to save the animation')
 args = parser.parse_args()
 print(args)
 
+def get_data(file):
+    np_data = loadtxt(file, delimiter='\t') # skips header
+    return np_data
+
 #Update function to replace dictionary values
 def update_people(scenario):
     if scenario == "queue":
@@ -39,6 +44,8 @@ update_people(args.scenario)
 people_pose = scenario_dist[args.scenario]
 num_people = len(people_pose)
 print(people_pose)
+
+print (get_data(args.file))
 
 fig = plt.figure()
 fig.set_dpi(100)
