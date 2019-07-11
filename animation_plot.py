@@ -45,7 +45,9 @@ people_pose = scenario_dist[args.scenario]
 num_people = len(people_pose)
 print(people_pose)
 
-print (get_data(args.file))
+data = get_data(args.file)
+print (data.shape)
+animation_count = data.shape[0]
 
 fig = plt.figure()
 fig.set_dpi(100)
@@ -85,16 +87,19 @@ def init():
     return patch, patch1, rect, square
 
 def animate(i):
+    print (i)
     x, y = patch.center
-    x = 5 + 3 * np.sin(np.radians(i))
-    y = 5 + 3 * np.cos(np.radians(i))
+    # x = 5 + 3 * np.sin(np.radians(i))
+    # y = 5 + 3 * np.cos(np.radians(i))
+    x = data[i, 0]
+    y = data[i, 1]
     patch.center = (x, y)
     patch1.center = (x, y)
     return patch, patch1, rect, square
 
 anim = animation.FuncAnimation(fig, animate, 
                                init_func=init, 
-                               frames=360, 
+                               frames=animation_count, 
                                interval=100,
                                blit=True)
 
