@@ -54,7 +54,10 @@ fig.set_dpi(100)
 fig.set_size_inches(7, 6.5)
 
 ax = plt.axes(xlim=(0, 25), ylim=(0, 25))
+ax.axis('off')
 ax.grid(color='k', linestyle=':', linewidth=0.25)
+ax.plot(0,0, '.b', label='Human')
+ax.plot(0,0, '.r', label='Robot')
 # patch = Ellipse(xy=(0.5, 0.5), width=0.5, height=0.2, angle=60)
 # patch1 = Circle((5, -5), 0.1, fc='k')
 
@@ -87,7 +90,7 @@ def init():
     return rect, square
 
 def animate(i):
-    print (i)
+    # print (i)
     x, y = rect.xy
     # x = 5 + 3 * np.sin(np.radians(i))
     # y = 5 + 3 * np.cos(np.radians(i))
@@ -102,5 +105,7 @@ anim = animation.FuncAnimation(fig, animate,
                                frames=animation_count, 
                                interval=100,
                                blit=True)
+
+ax.legend()
 
 plt.show()
