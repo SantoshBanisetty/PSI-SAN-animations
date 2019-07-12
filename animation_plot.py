@@ -32,9 +32,9 @@ def get_data(file):
 def update_people(scenario):
     if scenario == "queue":
         scenario_dist[scenario] = [(11, 12, 90), (13, 12, 90), (15, 12, 90)]
-    if scenario == "formation":
+    elif scenario == "formation":
         scenario_dist[scenario] = [(11, 12, 90), (13, 14, 0), (15, 12, 270)]
-    if scenario == "art":
+    elif scenario == "art":
         scenario_dist[scenario] = [(22.37, 10.96, 90)]
     else:
         print("Invalid scenario")
