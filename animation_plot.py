@@ -108,4 +108,11 @@ anim = animation.FuncAnimation(fig, animate,
 
 ax.legend()
 
-plt.show()
+if args.save == "1":
+    #Save the animation
+    anim.save('animation.mp4', fps=30, 
+          extra_args=['-vcodec', 'h264', 
+                      '-pix_fmt', 'yuv420p'])
+else:
+    #Show animation
+    plt.show()
