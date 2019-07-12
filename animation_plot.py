@@ -88,13 +88,13 @@ def init():
 
 def animate(i):
     print (i)
-    x, y = patch.center
+    x, y = rect.xy
     # x = 5 + 3 * np.sin(np.radians(i))
     # y = 5 + 3 * np.cos(np.radians(i))
     x = data[i, 0]
     y = data[i, 1]
-    patch.center = (x, y)
-    patch1.center = (x, y)
+    rect.xy = (x-rect_width/2, y-rect_height/2)
+    square.xy = (x-square_length/2, y-square_length/2)
     return patch, patch1, rect, square
 
 anim = animation.FuncAnimation(fig, animate, 
