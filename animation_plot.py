@@ -9,6 +9,9 @@ rect_width = 0.8
 rect_height = 0.4
 square_length = 0.35
 
+pre_x = 0
+pre_y = 0
+
 scenario_dist = {
   "queue": [(1, 1, 90), (2, 2, 90), (3, 3, 90)],
   "art": [(1, 1, 180)],
@@ -91,13 +94,20 @@ def init():
 
 def animate(i):
     # print (i)
+    global pre_y, pre_x
     x, y = rect.xy
     # x = 5 + 3 * np.sin(np.radians(i))
     # y = 5 + 3 * np.cos(np.radians(i))
     x = data[i, 0]
     y = data[i, 1]
+    angle = np.rad2deg(np.arctan2(y - pre_y, x - pre_x))
     rect.xy = (x-rect_width/2, y-rect_height/2)
     square.xy = (x-square_length/2, y-square_length/2)
+    rect.angle = angle + 90
+    square.angle = angle + 90
+
+    pre_x = x
+    pre_y = y
     return rect, square
 
 anim = animation.FuncAnimation(fig, animate, 
