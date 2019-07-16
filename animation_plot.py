@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 from matplotlib.patches import Ellipse, Circle, Rectangle
 from numpy import loadtxt
+import random
 
 rect_width = 0.8
 rect_height = 0.4
@@ -81,7 +82,7 @@ def init():
     for person in people:
         ax.add_patch(person)
     for head in heads:
-          ax.add_patch(head)
+        ax.add_patch(head)
     # patch.center = (5, 5)
     # patch1.center = (5, 5)
     rect.xy=(4-rect_width/2, 4-rect_height/2) #adjust for lower corner of the rectangle
@@ -108,7 +109,21 @@ def animate(i):
 
     pre_x = x
     pre_y = y
-    return rect, square
+    lst = []
+    lst.append(rect)
+    lst.append(square)
+
+    for index, person in enumerate(people):
+        p_x, p_y = person.center
+        if person.angle == 90 or person.angle == 270:
+            person.center = (p_x, p_y+random.uniform(-0.025, 0.025))
+            heads[index].center = (p_x, p_y+random.uniform(-0.025, 0.025))
+        else:
+            person.center = (p_x+random.uniform(-0.025, 0.025), p_y)
+            heads[index].center = (p_x+random.uniform(-0.025, 0.025), p_y)
+        lst.append(person)
+        lst.append(heads[index])
+    return lst
 
 anim = animation.FuncAnimation(fig, animate, 
                                init_func=init, 
