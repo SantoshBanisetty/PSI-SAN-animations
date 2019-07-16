@@ -114,13 +114,13 @@ def animate(i):
     lst.append(square)
 
     for index, person in enumerate(people):
-        p_x, p_y = person.center
+        #p_x, p_y = person.center
         if person.angle == 90 or person.angle == 270:
-            person.center = (p_x, p_y+random.uniform(-0.025, 0.025))
-            heads[index].center = (p_x, p_y+random.uniform(-0.025, 0.025))
+            person.center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.025, 0.025))
+            heads[index].center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.025, 0.025))
         else:
-            person.center = (p_x+random.uniform(-0.025, 0.025), p_y)
-            heads[index].center = (p_x+random.uniform(-0.025, 0.025), p_y)
+            person.center = (people_pose[index][0]+random.uniform(-0.025, 0.025), people_pose[index][1])
+            heads[index].center = (people_pose[index][0]+random.uniform(-0.025, 0.025), people_pose[index][1])
         lst.append(person)
         lst.append(heads[index])
     return lst
