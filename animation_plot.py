@@ -88,19 +88,11 @@ def init():
         ax.add_patch(person)
     for head in heads:
         ax.add_patch(head)
-    # patch.center = (5, 5)
-    # patch1.center = (5, 5)
+
     t_x = 5
     t_y = 5
-    # rad = np.radians(90)
-    # new_x = t_x*np.cos(rad) - t_y*np.sin(rad)
-    # new_y = t_x*np.sin(rad) + t_y*np.cos(rad)
-    # print (t_x, t_y)
-    rect.xy=(t_x, t_y) #adjust for lower corner of the rectangle
-    #square.xy=(4-square_length/2, 4-square_length/2)
-    # ax.add_patch(patch)
-    # ax.add_patch(patch1)
-    # print(rect.angle)
+
+    rect.xy=(t_x, t_y) 
     ax.add_patch(rect)
     #ax.add_patch(square)
     return rect,
@@ -113,13 +105,12 @@ def animate(i):
     # y = 5 + 3 * np.cos(np.radians(i))
     x = data[i, 0]
     y = data[i, 1]
-    angle = np.rad2deg(np.arctan2(y - pre_y, x - pre_x))
-    rect.xy = (x-rect_width/2, y-rect_height/2)
-    #square.xy = (x-square_length/2, y-square_length/2)
-    dq.append(angle)
-    # print (angle, np.mean(dq), len(dq))
-    rect.angle = np.mean(dq) + 90
-    #square.angle = angle + 90
+    alpha = np.rad2deg(np.arctan2(y - pre_y, x - pre_x))
+    dq.append(alpha)
+    angle = np.mean(dq)
+    rect.xy = (x - np.sqrt(2)*rect_height/2*np.cos(np.radians(45+angle)), y -np.sqrt(2)*rect_height/2*np.sin(np.radians(45+angle)))
+    rect.angle = angle
+
 
     pre_x = x
     pre_y = y
