@@ -117,7 +117,7 @@ def animate(i):
     rect.xy = (x-rect_width/2, y-rect_height/2)
     #square.xy = (x-square_length/2, y-square_length/2)
     dq.append(angle)
-    print (angle, np.mean(dq), len(dq))
+    # print (angle, np.mean(dq), len(dq))
     rect.angle = np.mean(dq) + 90
     #square.angle = angle + 90
 
@@ -128,13 +128,13 @@ def animate(i):
     #lst.append(square)
 
     for index, person in enumerate(people):
-        #p_x, p_y = person.center
-        if person.angle == 90 or person.angle == 270:
-            person.center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.025, 0.025))
-            heads[index].center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.025, 0.025))
-        else:
-            person.center = (people_pose[index][0]+random.uniform(-0.025, 0.025), people_pose[index][1])
-            heads[index].center = (people_pose[index][0]+random.uniform(-0.025, 0.025), people_pose[index][1])
+        if random.uniform(0, 9) <= 1:
+            if person.angle == 90 or person.angle == 270:
+                person.center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.025, 0.025))
+                heads[index].center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.025, 0.025))
+            else:
+                person.center = (people_pose[index][0]+random.uniform(-0.025, 0.025), people_pose[index][1])
+                heads[index].center = (people_pose[index][0]+random.uniform(-0.025, 0.025), people_pose[index][1])
         lst.append(person)
         lst.append(heads[index])
     return lst
