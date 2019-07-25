@@ -5,6 +5,7 @@ from matplotlib import animation
 from matplotlib.patches import Ellipse, Circle, Rectangle
 from numpy import loadtxt
 import random
+from collections import deque
 
 rect_width = 0.5
 rect_height = 0.5
@@ -12,6 +13,8 @@ square_length = 0.35
 
 pre_x = 0
 pre_y = 0
+
+dq = deque(maxlen=60)
 
 scenario_dist = {
   "queue": [(1, 1, 90), (2, 2, 90), (3, 3, 90)],
@@ -92,19 +95,19 @@ def init():
     # rad = np.radians(90)
     # new_x = t_x*np.cos(rad) - t_y*np.sin(rad)
     # new_y = t_x*np.sin(rad) + t_y*np.cos(rad)
-    print (t_x, t_y)
+    # print (t_x, t_y)
     rect.xy=(t_x, t_y) #adjust for lower corner of the rectangle
     #square.xy=(4-square_length/2, 4-square_length/2)
     # ax.add_patch(patch)
     # ax.add_patch(patch1)
-    print(rect.angle)
+    # print(rect.angle)
     ax.add_patch(rect)
     #ax.add_patch(square)
     return rect,
 
 def animate(i):
     # print (i)
-    global pre_y, pre_x
+    global pre_y, pre_x, dq
     x, y = rect.xy
     # x = 5 + 3 * np.sin(np.radians(i))
     # y = 5 + 3 * np.cos(np.radians(i))
@@ -113,7 +116,9 @@ def animate(i):
     angle = np.rad2deg(np.arctan2(y - pre_y, x - pre_x))
     rect.xy = (x-rect_width/2, y-rect_height/2)
     #square.xy = (x-square_length/2, y-square_length/2)
-    rect.angle = angle + 90
+    dq.append(angle)
+    print (angle, np.mean(dq), len(dq))
+    rect.angle = np.mean(dq) + 90
     #square.angle = angle + 90
 
     pre_x = x
