@@ -7,8 +7,8 @@ from numpy import loadtxt
 import random
 from collections import deque
 
-rect_width = 0.5
-rect_height = 0.5
+rect_width = 0.4
+rect_height = 0.4
 square_length = 0.35
 
 pre_x = 0
@@ -61,9 +61,9 @@ fig.set_dpi(100)
 fig.set_size_inches(7, 6.5)
 
 ax = plt.axes(xlim=(0, 25), ylim=(0, 25))
-#ax.axis('off')
-# ax.set_xticks([])
-# ax.set_yticks([])
+# ax.axis('off')
+ax.set_xticks([])
+ax.set_yticks([])
 ax.grid(color='k', linestyle=':', linewidth=0.25)
 ax.plot(0,0, '.c', label='Human')
 ax.plot(0,0, '.r', label='Robot')
@@ -121,11 +121,11 @@ def animate(i):
     for index, person in enumerate(people):
         if random.uniform(0, 9) <= 1:
             if person.angle == 90 or person.angle == 270:
-                person.center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.025, 0.025))
-                heads[index].center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.025, 0.025))
+                person.center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.03, 0.03))
+                heads[index].center = (people_pose[index][0], people_pose[index][1]+random.uniform(-0.03, 0.03))
             else:
-                person.center = (people_pose[index][0]+random.uniform(-0.025, 0.025), people_pose[index][1])
-                heads[index].center = (people_pose[index][0]+random.uniform(-0.025, 0.025), people_pose[index][1])
+                person.center = (people_pose[index][0]+random.uniform(-0.03, 0.03), people_pose[index][1])
+                heads[index].center = (people_pose[index][0]+random.uniform(-0.03, 0.03), people_pose[index][1])
         lst.append(person)
         lst.append(heads[index])
     return lst
@@ -140,7 +140,7 @@ ax.legend()
 
 if args.save == "1":
     #Save the animation
-    anim.save('animation.mp4', fps=10, 
+    anim.save('animation.mp4', fps=30, 
           extra_args=['-vcodec', 'h264', 
                       '-pix_fmt', 'yuv420p'])
 else:
