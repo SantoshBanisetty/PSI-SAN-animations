@@ -6,8 +6,8 @@ from matplotlib.patches import Ellipse, Circle, Rectangle
 from numpy import loadtxt
 import random
 
-rect_width = 0.8
-rect_height = 0.4
+rect_width = 0.5
+rect_height = 0.5
 square_length = 0.35
 
 pre_x = 0
@@ -58,7 +58,9 @@ fig.set_dpi(100)
 fig.set_size_inches(7, 6.5)
 
 ax = plt.axes(xlim=(0, 25), ylim=(0, 25))
-ax.axis('off')
+#ax.axis('off')
+# ax.set_xticks([])
+# ax.set_yticks([])
 ax.grid(color='k', linestyle=':', linewidth=0.25)
 ax.plot(0,0, '.b', label='Human')
 ax.plot(0,0, '.r', label='Robot')
@@ -67,7 +69,7 @@ ax.plot(0,0, '.r', label='Robot')
 
 # Create a Rectangle patch
 rect = Rectangle(xy=(3,3), width=rect_width, height=rect_height, fc='r')
-square = Rectangle(xy=(3,3), width=square_length, height=square_length, fc='k')
+#square = Rectangle(xy=(3,3), width=square_length, height=square_length, fc='k')
 
 #Add people as list comprehension
 people = [Ellipse(xy=(people_pose[i][0], people_pose[i][1]),
@@ -85,13 +87,20 @@ def init():
         ax.add_patch(head)
     # patch.center = (5, 5)
     # patch1.center = (5, 5)
-    rect.xy=(4-rect_width/2, 4-rect_height/2) #adjust for lower corner of the rectangle
-    square.xy=(4-square_length/2, 4-square_length/2)
+    t_x = 5
+    t_y = 5
+    # rad = np.radians(90)
+    # new_x = t_x*np.cos(rad) - t_y*np.sin(rad)
+    # new_y = t_x*np.sin(rad) + t_y*np.cos(rad)
+    print (t_x, t_y)
+    rect.xy=(t_x, t_y) #adjust for lower corner of the rectangle
+    #square.xy=(4-square_length/2, 4-square_length/2)
     # ax.add_patch(patch)
     # ax.add_patch(patch1)
+    print(rect.angle)
     ax.add_patch(rect)
-    ax.add_patch(square)
-    return rect, square
+    #ax.add_patch(square)
+    return rect,
 
 def animate(i):
     # print (i)
@@ -103,15 +112,15 @@ def animate(i):
     y = data[i, 1]
     angle = np.rad2deg(np.arctan2(y - pre_y, x - pre_x))
     rect.xy = (x-rect_width/2, y-rect_height/2)
-    square.xy = (x-square_length/2, y-square_length/2)
+    #square.xy = (x-square_length/2, y-square_length/2)
     rect.angle = angle + 90
-    square.angle = angle + 90
+    #square.angle = angle + 90
 
     pre_x = x
     pre_y = y
     lst = []
     lst.append(rect)
-    lst.append(square)
+    #lst.append(square)
 
     for index, person in enumerate(people):
         #p_x, p_y = person.center
@@ -135,7 +144,7 @@ ax.legend()
 
 if args.save == "1":
     #Save the animation
-    anim.save('animation.mp4', fps=30, 
+    anim.save('animation.mp4', fps=10, 
           extra_args=['-vcodec', 'h264', 
                       '-pix_fmt', 'yuv420p'])
 else:
